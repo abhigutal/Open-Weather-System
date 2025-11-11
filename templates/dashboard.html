@@ -1,0 +1,85 @@
+<!-- templates/dashboard.html -->
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Weather App{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- City Selector -->
+    <div class="weather-card">
+        <form method="POST" action="{{ url_for('update_city') }}" class="row g-3">
+            <div class="col-md-9">
+                <input type="text" class="form-control" name="city" placeholder="Enter city name" value="{{ user.city }}">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="fas fa-search"></i> Update City
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Current Weather -->
+    {% if current_weather %}
+    <div class="weather-card">
+        <h2 class="mb-4">Current Weather in {{ current_weather.city }}, {{ current_weather.country }}</h2>
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center">
+                <img src="https://openweathermap.org/img/wn/{{ current_weather.icon }}@4x.png" class="weather-icon">
+                <p class="h5">{{ current_weather.description }}</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <div class="temp-display">{{ current_weather.temperature }}°C</div>
+                <p>Feels like {{ current_weather.feels_like }}°C</p>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-tint"></i> Humidity: {{ current_weather.humidity }}%</li>
+                    <li><i class="fas fa-wind"></i> Wind: {{ current_weather.wind_speed }} m/s</li>
+                    <li><i class="fas fa-compress-arrows-alt"></i> Pressure: {{ current_weather.pressure }} hPa</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- AI Insights -->
+    {% if ai_insights %}
+    <div class="weather-card">
+        <h3 class="mb-3">
+            <i class="fas fa-brain"></i> AI Weather Insights
+        </h3>
+        <ul class="list-group list-group-flush">
+            {% for insight in ai_insights %}
+                {% if insight %}
+                <li class="list-group-item">{{ insight }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <!-- 7-Day Forecast -->
+    {% if forecast %}
+    <div class="weather-card">
+        <h3 class="mb-4">7-Day Forecast</h3>
+        <div class="row">
+            {% for day in forecast %}
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="forecast-card">
+                    <h5>{{ day.date }}</h5>
+                    <img src="https://openweathermap.org/img/wn/{{ day.icon }}@2x.png" width="50">
+                    <p class="mb-1">{{ day.temp_max }}° / {{ day.temp_min }}°</p>
+                    <small>{{ day.description }}</small>
+                    <div class="mt-2">
+                        <small><i class="fas fa-tint"></i> {{ day.humidity }}%</small>
+                        <small><i class="fas fa-wind ms-2"></i> {{ day.wind_speed }} m/s</small>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

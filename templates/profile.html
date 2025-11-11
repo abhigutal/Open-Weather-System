@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Weather App{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="weather-card">
+                <h3 class="mb-4">
+                    <i class="fas fa-user"></i> Profile Information
+                </h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Username:</strong> {{ user.username }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Email:</strong> {{ user.email }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Default City:</strong> {{ user.city }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Member Since:</strong> {{ user.created_at.strftime('%B %d, %Y') }}
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Total Queries:</strong> {{ query_count }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="weather-card">
+                <h3 class="mb-4">
+                    <i class="fas fa-cog"></i> Preferences
+                </h3>
+                <form method="POST" action="{{ url_for('update_preferences') }}">
+                    <div class="mb-3">
+                        <label for="units" class="form-label">Temperature Units</label>
+                        <select class="form-select" id="units" name="units">
+                            <option value="metric" {% if user.preferences.units == 'metric' %}selected{% endif %}>
+                                Celsius (°C)
+                            </option>
+                            <option value="imperial" {% if user.preferences.units == 'imperial' %}selected{% endif %}>
+                                Fahrenheit (°F)
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="notifications" name="notifications"
+                               {% if user.preferences.notifications %}checked{% endif %}>
+                        <label class="form-check-label" for="notifications">
+                            Enable weather notifications
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Preferences
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Welcome - Weather App{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center text-white">
+        <h1 class="display-3 mb-4">
+            <i class="fas fa-cloud-sun"></i> Weather Forecast App
+        </h1>
+        <p class="lead mb-5">Get AI-powered weather insights and 7-day forecasts</p>
+        
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="weather-card">
+                    <i class="fas fa-temperature-high fa-3x text-primary mb-3"></i>
+                    <h4>Real-time Weather</h4>
+                    <p>Get current weather conditions for any city worldwide</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weather-card">
+                    <i class="fas fa-calendar-week fa-3x text-success mb-3"></i>
+                    <h4>7-Day Forecast</h4>
+                    <p>Plan ahead with detailed weekly weather predictions</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="weather-card">
+                    <i class="fas fa-brain fa-3x text-info mb-3"></i>
+                    <h4>AI Insights</h4>
+                    <p>Get personalized weather recommendations powered by OpenAI</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-5">
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg mx-2">
+                <i class="fas fa-user-plus"></i> Get Started
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg mx-2">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

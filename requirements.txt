@@ -1,0 +1,8 @@
+Flask==3.0.3
+Flask-PyMongo==2.3.0
+Werkzeug==3.0.3
+requests==2.32.3
+python-dotenv==1.0.1
+waitress==3.0.0
+pymongo==4.10.1
+dnspython==2.7.0
